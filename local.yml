@@ -1,0 +1,6 @@
+- name: Ansible Example Pull Mode
+  hosts: localhost
+  user: root
+  connection: local
+  tasks:
+    - include oms.yml
