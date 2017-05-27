@@ -1,6 +1,8 @@
-- name: Ansible Example Pull Mode
+---
+- name: this is a play at the top level of a file
   hosts: localhost
-  user: root
-  connection: local
+  remote_user: root
   tasks:
-    - include oms.yml
+    - include: oms.yml
+
+
