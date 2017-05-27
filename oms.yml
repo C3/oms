@@ -1,0 +1,14 @@
+- hosts: localhost
+  become: yes
+  tasks:
+   - name: Download oms for Linux
+     get_url: 
+        url: https://github.com/Microsoft/OMS-Agent-for-Linux/releases/download/OMSAgent-201702-v1.3.1-15/omsagent-1.3.1-15.universal.x64.sh
+        dest: /opt/omsagent-1.3.1-15.universal.x64.sh
+        mode: a+x
+   - name: Installation of OMS agent
+     shell: /opt/omsagent-1.3.1-15.universal.x64.sh --force --upgrade  -w  "$(grep OMS_WORKSPACEID /etc/omscreds | awk -F":" '{ print $2}')" -s "$(grep OMS_WORKSPACEKEY /etc/omscreds | awk -F":" '{ print $2}')" 
+   - name: reload systemd
+     command: systemctl daemon-reload
+   - name: enabling oms config
+     shell: /opt/microsoft/omsconfig/Scripts/OMS_MetaConfigHelper.py –enable
