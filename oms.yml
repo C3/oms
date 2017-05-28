@@ -4,3 +4,7 @@
      command: systemctl daemon-reload
    - name: enabling oms config
      shell: /opt/microsoft/omsconfig/Scripts/OMS_MetaConfigHelper.py –enable
+   - name: Remove the oms creds file
+     file:
+         path: /etc/omscreds
+         state: absent
